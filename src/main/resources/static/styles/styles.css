@@ -1,0 +1,29 @@
+.bg-navbar {
+    background-color: #007FE9; !important;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #072d49;
+    text-decoration: underline;
+}
+
+.navigation-link {
+    color: white;
+    text-decoration: none;
+}
+
+.navigation-link:hover {
+    color: #560202;
+    text-decoration: underline;
+}
+
+#inicio {
+    background-image: url('https://imagenes.eltiempo.com/files/image_1200_600/uploads/2019/04/30/5cc8c8e77417e.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
