@@ -17,9 +17,7 @@ public class DestinoServiceImpl implements DestinoService {
     @Override
     @Transactional(readOnly = true)
     public List<Destino> getDestinos() {
-        var listaDestinos = destinoDao.findAll();
-
-        return listaDestinos;
+        return destinoDao.findAll();
     }
 
     @Override

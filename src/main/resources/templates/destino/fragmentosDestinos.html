@@ -19,10 +19,10 @@
             <td th:text="${destino.pais}">Pais</td>
             <td th:text="${destino.ciudad}">Ciudad</td>
             <td th:text="${destino.tiempoViaje} + ' horas'">Tiempo Viaje</td>
-            <td th:text="${destino.precioPersona}">Precio / persona</td>
+            <td th:text="'$' + ${destino.precioPersona}">Precio / persona</td>
             <td>
-                <a th:href="@{'/destinos/editar/' + ${destino.idDestino}}" class="btn btn-primary">Editar</a>
-                <a th:href="@{'/destinos/eliminar/' + ${destino.idDestino}}" class="btn btn-danger">Eliminar</a>
+                <a th:href="@{/destino/editar/} + ${destino.idDestino}" class="btn btn-primary">Editar</a>
+                <a th:href="@{/destino/eliminar/} + ${destino.idDestino}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         </tbody>
@@ -51,6 +51,35 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary mt-2 flex-grow-1 me-2">Agregar</button>
+                    <a th:href="@{/destino/listado}" class="btn btn-danger mt-2 flex-grow-1">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section th:fragment="editarDestino" class="container my-5">
+        <h1 class="text-center">Editar Destino</h1>
+        <div class="card p-5 mt-3 w-75 shadow mx-auto">
+            <form th:action="@{/destino/agregarDestino}" th:object="${destino}" method="post"enctype="multipart/form-data">
+                <input type="hidden" name="idDestino" th:field="*{idDestino}">
+                <div class="form-group mb-3">
+                    <label for="pais">Pais</label>
+                    <input type="text" class="form-control" id="pais" name="pais" required="true" th:field="*{pais}" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="ciudad">Ciudad</label>
+                    <input type="text" class="form-control" id="ciudad" name="ciudad" required="true" th:field="*{ciudad}" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="tiempoViaje">Tiempo de vuelo</label>
+                    <input type="text" class="form-control" id="tiempoViaje" name="tiempoViaje" required="true" th:field="*{tiempoViaje}" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="precioPersona">Precio / persona</label>
+                    <input type="text" class="form-control" id="precioPersona" name="precioPersona" required="true" th:field="*{precioPersona}" />
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary mt-2 flex-grow-1 me-2">Editar</button>
                     <a th:href="@{/destino/listado}" class="btn btn-danger mt-2 flex-grow-1">Cancelar</a>
                 </div>
             </form>
