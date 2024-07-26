@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -17,7 +17,7 @@
     <header th:fragment="header">
         <nav class="navbar bg-navbar">
             <div class="container-fluid mx-3">
-                <a class="navbar-brand">
+                <a class="navbar-brand" th:href="@{/}">
                     <img src="/assets/logo.png" alt="logo tiquiviajes" width="300" height="" class="d-inline-block align-top">
                 </a>
                 <form class="d-flex" role="search">
@@ -34,7 +34,7 @@
             <div class="col">
                 <div class="d-flex justify-content-center">
                     <div class="mx-4">
-                        <a class="navigation-link" th:href="@{/}">Vuelos</a>
+                        <a class="navigation-link" th:href="@{/destino/listado}">Destinos</a>
                     </div>
                     <div class="mx-4">
                         <a class="navigation-link" th:href="@{/}">Hoteles</a>
@@ -64,7 +64,7 @@
                     <div>
                         <a th:href="@{/}" class="footer-link">Contactenos</a>
                         <br><br>
-                        <a th:href="@{/}" class="footer-link">Nuestras Sedes</a>
+                        <a th:href="@{/sedes/nuestrasSedes}" class="footer-link">Nuestras Sedes</a>
                     </div>
                 </div>
                 <div class="col-4">
