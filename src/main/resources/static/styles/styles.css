@@ -27,3 +27,35 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.custom-card {
+    width: 100%;
+    height: 400px;
+}
+
+.custom-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.sinFondo {
+    background-color: transparent;
+    border: none;
+}
+
+.sinFondo:hover {
+    background-color: #045094;
+    border: none;
+}
+
+.dropdown-toggle:active {
+    /*background-color: #3e99ea;*/
+    background: red;
+    border: none;
+}
+
+.dropstart .dropdown-toggle::before{
+    color: white;
+    margin-bottom: 4px;
+}

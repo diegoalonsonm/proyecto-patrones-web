@@ -1,5 +1,6 @@
 package com.proyectoFinal.services;
 
+import com.proyectoFinal.domain.Destino;
 import com.proyectoFinal.domain.Paquete;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface PaqueteService {
 
     public Paquete getPaquete(Paquete paquete);
 
-    public List<Paquete> getPaquetesByDestino(String destino);
+    public List<Paquete> getPaquetesByDestino(Destino destino);
 
     public void save(Paquete paquete);
 
