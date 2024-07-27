@@ -23,8 +23,8 @@ public class Paquete {
     private boolean incluyeTransporte;
     private boolean incluyeActividades;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "id_destino")
-    private List<Destino> destinos;
+    private Destino destino;
 
 }

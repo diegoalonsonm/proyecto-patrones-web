@@ -2,9 +2,9 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
 <head th:replace="~{layout/layout.html :: head}"/>
 <body>
-    <header th:replace="~{layout/layout :: header}" />
+    <header th:replace="~{sharedFragments/sharedFragments :: cleanHeader}" />
     <section th:replace="~{layout/layout :: navigation}" />
-    <section class="" style="height: 100vh">
+    <section style="height: 100vh">
         <div class="container text-center mt-5">
             <div class="row mb-3 text-start">
                 <div class="col">
@@ -23,6 +23,6 @@
             </div>
         </div>
     </section>
-    <footer th:replace="~{layout/layout :: footer}" />
+    <footer th:replace="~{sharedFragments/sharedFragments :: cleanFooter}" />
 </body>
 </html>

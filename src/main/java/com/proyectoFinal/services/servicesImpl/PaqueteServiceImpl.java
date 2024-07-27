@@ -1,6 +1,7 @@
 package com.proyectoFinal.services.servicesImpl;
 
 import com.proyectoFinal.dao.PaquetesDao;
+import com.proyectoFinal.domain.Destino;
 import com.proyectoFinal.domain.Paquete;
 import com.proyectoFinal.services.PaqueteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +30,18 @@ public class PaqueteServiceImpl implements PaqueteService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Paquete> getPaquetesByDestino(String destino) {
-        return paqueteDao.findByDestino(destino);
+    public List<Paquete> getPaquetesByDestino(Destino destino) {
+        return paqueteDao.findPaqueteByDestino(destino);
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void save(Paquete paquete) {
         paqueteDao.save(paquete);
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void delete(Paquete paquete) {
         paqueteDao.delete(paquete);
     }
