@@ -41,7 +41,12 @@
             <div class="col">
                 <div class="d-flex justify-content-center">
                     <div class="mx-4">
-                        <a class="navigation-link" th:href="@{/destino/listado}">Destinos</a>
+                        <a class="navigation-link" sec:authorize="!isAuthenticated() || hasRole('ROLE_USER')" th:href="@{/destino/listadoPublico}">
+                            Destinos
+                        </a>
+                        <a class="navigation-link" sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')" th:href="@{/destino/listado}">
+                            Destinos
+                        </a>
                     </div>
                     <div class="mx-4">
                         <a class="navigation-link" th:href="@{/}">Hoteles</a>
