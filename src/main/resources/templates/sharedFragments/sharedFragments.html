@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
+<head th:replace="~{layout/layout.html :: head}"/>
+<body>
+
+    <!-- header sin searchbar -->
+    <header th:fragment="cleanHeader">
+        <nav class="navbar bg-navbar">
+            <div class="container-fluid mx-3">
+                <a class="navbar-brand">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-patrones-b109c.appspot.com/o/assets%2Flogo.png?alt=media&token=9bdf3448-f41d-47c7-8282-c046326906f6" alt="logo tiquiviajes" width="300" height="" class="d-inline-block align-top">
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Footer limpio -->
+    <footer th:fragment="cleanFooter">
+        <div class="container-fluid bg-navbar text-white text-center py-3">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="col-4">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-patrones-b109c.appspot.com/o/assets%2Flogo.png?alt=media&token=9bdf3448-f41d-47c7-8282-c046326906f6" alt="icono tiquiviajes">
+                </div>
+                <div class="col-4 d-flex align-items-center justify-content-center">
+                    <div>
+                        <p class="text-primary">a</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <p class="my-3">© 2024 TiquiViajes. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

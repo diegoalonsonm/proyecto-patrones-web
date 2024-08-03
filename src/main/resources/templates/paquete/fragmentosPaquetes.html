@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
+<head th:replace="~{layout/layout.html :: head}"/>
+<body>
+
+    <!-- tabla paquetes -->
+    <table th:fragment="tablaPaquetes" class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Precio / persona</th>
+            <th scope="col">Con Alojamiento</th>
+            <th scope="col">Con Transporte</th>
+            <th scope="col">Con Actividades</th>
+            <th scope="col">Destino</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="paquete : ${paquetes}">
+            <td th:text="${paquete.nombre}">Nombre</td>
+            <td th:text="${paquete.descripcion}">Descripcion</td>
+            <td th:text="'$' + ${paquete.precio}">Precio / persona</td>
+            <td th:text="${paquete.incluyeAlojamiento} ? 'Si' : 'No'">Con Alojamiento</td>
+            <td th:text="${paquete.incluyeTransporte}  ? 'Si' : 'No'">Con Transporte</td>
+            <td th:text="${paquete.incluyeActividades}  ? 'Si' : 'No'">Con Actividades</td>
+            <td th:text="${paquete.destino.pais}">Destino</td>
+            <td>
+                <a th:href="@{/paquete/editar/} + ${paquete.idPaquete}" class="btn btn-primary">Editar</a>
+                <a th:href="@{/paquete/eliminar/} + ${paquete.idPaquete}" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- formulario agregar paquete -->
+    <section th:fragment="agregarPaquete" class="container my-5">
+        <h1 class="text-center">Agregar Paquete</h1>
+        <div class="card p-5 mt-3 w-75 shadow mx-auto">
+            <form th:action="@{/paquete/agregarPaquete}" th:object="${paquete}" method="post"enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required="true" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="descripcion">Descripcion</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" required="true" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="precio">Precio / persona</label>
+                    <input type="text" class="form-control" id="precio" name="precio" required="true" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="incluyeAlojamiento">Incluye Alojamiento</label>
+                    <input type="checkbox" class="form-check-input" id="incluyeAlojamiento" name="incluyeAlojamiento" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="incluyeTransporte">Incluye Transporte</label>
+                    <input type="checkbox" class="form-check-input" id="incluyeTransporte" name="incluyeTransporte" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="incluyeActividades">Incluye Actividades</label>
+                    <input type="checkbox" class="form-check-input" id="incluyeActividades" name="incluyeActividades" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="idDestino">Destino</label>
+                    <select class="form-select" name="destino.idDestino" id="idDestino">
+                        <option th:each="destino : ${destinos}" th:value="${destino.idDestino}">[[${destino.ciudad}]]</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary mt-2 flex-grow-1 me-2">Agregar</button>
+                    <a th:href="@{/paquete/listado}" class="btn btn-danger mt-2 flex-grow-1">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- formulario editar paquete -->
+    <section th:fragment="editarPaquete" class="container my-5">
+        <h1 class="text-center">Editar Destino</h1>
+        <div class="card p-5 mt-3 w-75 shadow mx-auto">
+            <form th:action="@{/paquete/agregarPaquete}" th:object="${paquete}" method="post"enctype="multipart/form-data">
+                <input type="hidden" name="idDestino" th:field="*{idPaquete}">
+                <div class="form-group mb-3">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required="true" th:field="*{nombre}" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="descripcion">Descripcion</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" required="true" th:field="*{descripcion}" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="precio">Precio / persona</label>
+                    <input type="text" class="form-control" id="precio" name="precio" required="true" th:field="*{precio}" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="incluyeAlojamiento">Incluye Alojamiento</label>
+                    <input type="checkbox" class="form-check-input" id="incluyeAlojamiento" name="incluyeAlojamiento" th:field="*{incluyeAlojamiento}" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="incluyeTransporte">Incluye Transporte</label>
+                    <input type="checkbox" class="form-check-input" id="incluyeTransporte" name="incluyeTransporte" th:field="*{incluyeTransporte}" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="incluyeActividades">Incluye Actividades</label>
+                    <input type="checkbox" class="form-check-input" id="incluyeActividades" name="incluyeActividades" th:field="*{incluyeActividades}" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="idDestino">Destino</label>
+                    <select class="form-select" name="destino.idDestino" id="idDestino" th:field="*{destino.idDestino}">
+                        <option th:each="destino : ${destinos}" th:value="${destino.idDestino}">[[${destino.ciudad}]]</option>
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary mt-2 flex-grow-1 me-2">Agregar</button>
+                    <a th:href="@{/paquete/listado}" class="btn btn-danger mt-2 flex-grow-1">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>

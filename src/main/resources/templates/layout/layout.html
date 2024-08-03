@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -10,6 +10,7 @@
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="/js/index.js" type="text/javascript"></script>
     <title>TiquiViajes</title>
 </head>
 <body>
@@ -17,13 +18,19 @@
     <header th:fragment="header">
         <nav class="navbar bg-navbar">
             <div class="container-fluid mx-3">
-                <a class="navbar-brand">
-                    <img src="/assets/logo.png" alt="logo tiquiviajes" width="300" height="" class="d-inline-block align-top">
+                <a class="navbar-brand" th:href="@{/}">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-patrones-b109c.appspot.com/o/assets%2Flogo.png?alt=media&token=9bdf3448-f41d-47c7-8282-c046326906f6" alt="logo tiquiviajes" width="300" height="" class="d-inline-block align-top">
                 </a>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2 w-100" type="search" placeholder="Ingresa tu destino" aria-label="Search">
-                    <button class="btn btn-secondary" type="submit">Buscar</button>
-                </form>
+                <div class="btn-group dropstart">
+                    <button type="button" class="btn dropdown-toggle sinFondo" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user text-white fs-3 my-2"></i>
+                        <span class="text-white fw-bold mb-2 ms-1">Mi Perfil</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/login}">Iniciar Sesión</a></li>
+                        <li><a class="dropdown-item" th:href="@{/registro}">Registrarse</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -34,7 +41,12 @@
             <div class="col">
                 <div class="d-flex justify-content-center">
                     <div class="mx-4">
-                        <a class="navigation-link" th:href="@{/}">Vuelos</a>
+                        <a class="navigation-link" sec:authorize="!isAuthenticated() || hasRole('ROLE_USER')" th:href="@{/destino/listadoPublico}">
+                            Destinos
+                        </a>
+                        <a class="navigation-link" sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')" th:href="@{/destino/listado}">
+                            Destinos
+                        </a>
                     </div>
                     <div class="mx-4">
                         <a class="navigation-link" th:href="@{/}">Hoteles</a>
@@ -43,7 +55,7 @@
                         <a class="navigation-link" th:href="@{/}">Tours</a>
                     </div>
                     <div class="mx-4">
-                        <a class="navigation-link" th:href="@{/}">Paquetes</a>
+                        <a class="navigation-link" th:href="@{/paquete/listado}">Paquetes</a>
                     </div>
                     <div class="mx-4">
                         <a class="navigation-link" th:href="@{/}">Asistencia</a>
@@ -58,13 +70,13 @@
         <div class="container-fluid bg-navbar text-white text-center py-5">
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="col-4">
-                    <img th:src="@{/assets/icono.png}" alt="icono tiquiviajes">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-patrones-b109c.appspot.com/o/assets%2Flogo.png?alt=media&token=9bdf3448-f41d-47c7-8282-c046326906f6" alt="icono tiquiviajes">
                 </div>
                 <div class="col-4 d-flex align-items-center justify-content-center">
                     <div>
                         <a th:href="@{/}" class="footer-link">Contactenos</a>
                         <br><br>
-                        <a th:href="@{/}" class="footer-link">Nuestras Sedes</a>
+                        <a th:href="@{/sedes/nuestrasSedes}" class="footer-link">Nuestras Sedes</a>
                     </div>
                 </div>
                 <div class="col-4">
