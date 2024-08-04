@@ -10,20 +10,22 @@ flush privileges;
 
 create table usuario(
 	id_usuario int primary key auto_increment,
+    username varchar(20) not null,
 	nombre varchar(50) not null,
 	primer_apellido varchar(50) not null,
 	segundo_apellido varchar(50) not null,
 	correo_electronico varchar(50) not null,
-	contrasena varchar(10) not null,
+	password varchar(10) not null,
 	telefono varchar(8) not null,
-	direccion varchar(255) not null
+	direccion varchar(255) not null,
+    ruta_imagen varchar(1024)
 );
 
 -- si el idiomaPreferido es true es ES, si es false es EN
-insert into usuario (nombre, primer_apellido, segundo_apellido, correo_electronico, contrasena, telefono, direccion)
-values ('Juan', 'Pérez', 'González', 'juan.perez@example.com', 'password1', '12345678', 'Calle Falsa 123, Ciudad'),
-    ('María', 'López', 'Martínez', 'maria.lopez@example.com', 'password2', '87654321', 'Avenida Siempre Viva 456, Ciudad'),
-    ('Carlos', 'Gómez', 'Hernández', 'carlos.gomez@example.com', 'password3', '12348765', 'Boulevard Principal 789, Ciudad');
+insert into usuario (username, nombre, primer_apellido, segundo_apellido, correo_electronico, password, telefono, direccion)
+values ('juansito47', 'Juan', 'Pérez', 'González', 'juan.perez@example.com', 'password1', '12345678', 'Calle Falsa 123, Ciudad'),
+    ('marx222', 'María', 'López', 'Martínez', 'maria.lopez@example.com', 'password2', '87654321', 'Avenida Siempre Viva 456, Ciudad'),
+    ('miTioCharlie', 'Carlos', 'Gómez', 'Hernández', 'carlos.gomez@example.com', 'password3', '12348765', 'Boulevard Principal 789, Ciudad');
 
 create table destino(
 	id_destino int primary key auto_increment,
@@ -42,8 +44,6 @@ values
     ('Japón', 'Tokyo', '14', 540.38, 'https://firebasestorage.googleapis.com/v0/b/proyecto-patrones-b109c.appspot.com/o/assets%2Ftokyo.webp?alt=media&token=5ad99494-4a4c-435b-ba7b-d5a349ff48dc');
 
 insert into destino (pais, ciudad, tiempo_viaje, precio_persona)values ('España', 'Madrid', '10', 1000.32);
-    
-select * from destino;
 
 create table paquete(
 	id_paquete int primary key auto_increment,

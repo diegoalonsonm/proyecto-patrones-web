@@ -121,5 +121,68 @@
         </div>
     </section>
 
+    <!-- card paquetes -->
+    <section th:fragment="cardsPaquetes" class="container my-5">
+        <div class="row mb-4">
+            <div class="col">
+                <h2>Nuestros paquetes disponibles</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" th:each="paquete : ${paquetes}">
+                <div class="card mb-4 custom-card">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <img class="card-img-top" th:src="${paquete.destino.urlImagen != null} ? @{${paquete.destino.urlImagen}} : 'https://via.placeholder.com/300'" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${paquete.nombre}">nombre</h5>
+                                <p class="card-text">
+                                    <span th:text="${paquete.descripcion}">descripcion</span>
+                                    <br>
+                                    <span>Precio por persona: </span> <span th:text="'$' + ${paquete.precio}">precio</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <strong>Destino: </strong> <span th:text="${paquete.destino.pais}">destino</span>
+                                </p>
+                                <ul class="list-group">
+                                    <li class="list-group-item">Incluye alojamiento: <span th:text="${paquete.incluyeAlojamiento} ? 'Si' : 'No'">incluyeAlojamiento</span></li>
+                                    <li class="list-group-item">Incluye transporte: <span th:text="${paquete.incluyeTransporte} ? 'Si' : 'No'">incluyeTransporte</span></li>
+                                    <li class="list-group-item">Incluye actividades: <span th:text="${paquete.incluyeActividades} ? 'Si' : 'No'">incluyeActividades</span></li>
+                                </ul>
+                                <a class="btn btn-primary mt-3" th:href="@{/paquete/listado}">Reserva Aqui</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- filtros paquetes -->
+    <section th:fragment="filtrosPaquetes" class="container mt-4 mb-2">
+        <div class="row w-50">
+            <div class="card">
+                <form th:action="@{/paquete/consultaPorPrecio}" method="post">
+                    <div class="card-body">
+                        <h5 class="card-title">Filtrar por precio</h5>
+                        <div class="form-group">
+                            <label for="precioMinimo">Precio minimo</label>
+                            <input type="text" class="form-control" id="precioMinimo" name="precioMinimo" required="true" />
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for="precioMaximo">Precio maximo</label>
+                            <input type="text" class="form-control" id="precioMaximo" name="precioMaximo" required="true" />
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
 </body>
 </html>
