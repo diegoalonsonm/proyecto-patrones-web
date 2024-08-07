@@ -16,13 +16,15 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long idUsuario;
+    private String username;
     private String nombre;
     private String primerApellido;
     private String segundoApellido;
     private String correoElectronico;
-    private String contrasena;
+    private String password;
     private String telefono;
     private String direccion;
+    private String rutaImagen;
 
     @OneToMany
     @JoinColumn(name = "id_usuario")

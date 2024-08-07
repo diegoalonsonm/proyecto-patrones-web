@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
+<head th:replace="~{layout/layout.html :: head}"/>
+<body>
+    <header th:replace="~{layout/layout :: header}" />
+    <section th:replace="~{layout/layout :: navigation}" />
+    <section class="container">
+        <div class="row pt-4 text-center">
+            <div class="col">
+                <h1>Preguntas frecuentes</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="accordion p-5" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                ¿Cuáles son los destinos más populares que ofrecen?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Nuestra agencia ofrece una amplia variedad de destinos populares, incluyendo playas paradisíacas, ciudades históricas y aventuras en la naturaleza. Algunos de nuestros destinos más solicitados son Francia, Inglaterra, y Japon.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                ¿Cómo puedo reservar un viaje con ustedes?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Puedes reservar un viaje con nosotros fácilmente a través de nuestro sitio web, por teléfono o visitando nuestra oficina. Nuestro equipo está listo para ayudarte a planificar tu viaje perfecto.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                ¿Ofrecen paquetes todo incluido?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Sí, ofrecemos una variedad de paquetes todo incluido que cubren alojamiento, comidas, traslados y actividades, para que puedas disfrutar de tus vacaciones sin preocupaciones.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                ¿Qué medidas de seguridad tienen en cuenta durante el viaje?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Nos tomamos muy en serio la seguridad de nuestros clientes. Trabajamos con proveedores de confianza y seguimos todas las recomendaciones y protocolos de seguridad en cada destino.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                ¿Cuál es su política de cancelación?
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Nuestra política de cancelación varía según el proveedor y el tipo de reserva. Te recomendamos revisar los términos y condiciones al momento de reservar o contactarnos para más detalles.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                ¿Puedo personalizar mi itinerario de viaje?
+                            </button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Por supuesto. Ofrecemos opciones de itinerarios personalizados para adaptarnos a tus preferencias y necesidades, asegurándonos de que tengas la experiencia de viaje que deseas.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                ¿Qué tipos de pago aceptan?
+                            </button>
+                        </h2>
+                        <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Aceptamos diversos métodos de pago, incluyendo tarjetas de crédito, transferencias bancarias y pagos en efectivo en nuestra oficina.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="~{layout/layout :: footer}" />
+</body>
+</html>

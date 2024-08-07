@@ -17,4 +17,6 @@ public interface PaqueteService {
 
     public void delete(Paquete paquete);
 
+    public List<Paquete> getPaquetesPorPrecio(double precioMinimo, double precioMaximo);
+
 }

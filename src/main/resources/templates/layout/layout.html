@@ -55,10 +55,15 @@
                         <a class="navigation-link" th:href="@{/}">Tours</a>
                     </div>
                     <div class="mx-4">
-                        <a class="navigation-link" th:href="@{/paquete/listado}">Paquetes</a>
+                        <a class="navigation-link" sec:authorize="!isAuthenticated() || hasRole('ROLE_USER')" th:href="@{/paquete/listadoPublico}">
+                            Paquetes
+                        </a>
+                        <a class="navigation-link" sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')" th:href="@{/paquete/listado}">
+                            Paquetes
+                        </a>
                     </div>
                     <div class="mx-4">
-                        <a class="navigation-link" th:href="@{/}">Asistencia</a>
+                        <a class="navigation-link" th:href="@{/}">Solicita ayuda</a>
                     </div>
                 </div>
             </div>
@@ -76,7 +81,9 @@
                     <div>
                         <a th:href="@{/}" class="footer-link">Contactenos</a>
                         <br><br>
-                        <a th:href="@{/sedes/nuestrasSedes}" class="footer-link">Nuestras Sedes</a>
+                        <a th:href="@{/otros/nuestrasSedes}" class="footer-link">Nuestras Sedes</a>
+                        <br><br>
+                        <a th:href="@{/otros/preguntasFrecuentes}" class="footer-link">Preguntas Frecuentes</a>
                     </div>
                 </div>
                 <div class="col-4">

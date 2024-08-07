@@ -46,4 +46,10 @@ public class PaqueteServiceImpl implements PaqueteService {
         paqueteDao.delete(paquete);
     }
 
+    @Override
+    @Transactional
+    public List<Paquete> getPaquetesPorPrecio(double precioMinimo, double precioMaximo) {
+        return paqueteDao.findByPrecioBetweenOrderByDescripcion(precioMinimo, precioMaximo);
+    }
+
 }

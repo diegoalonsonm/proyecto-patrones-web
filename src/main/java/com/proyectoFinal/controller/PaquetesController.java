@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/paquete")
@@ -28,6 +29,16 @@ public class PaquetesController {
         model.addAttribute("totalPaquetes", listaPaquetes.size());
 
         return "/paquete/listado";
+    }
+
+    // ver listado publico
+    @GetMapping("/listadoPublico")
+    public String getPaquetesPublico(Model model) {
+        var listaPaquetes = paquetesService.getPaquetes();
+        model.addAttribute("paquetes", listaPaquetes);
+        model.addAttribute("totalPaquetes", listaPaquetes.size());
+
+        return "/paquete/listadoPublico";
     }
 
     // ver pagina agregar
@@ -60,6 +71,18 @@ public class PaquetesController {
         model.addAttribute("paquete", paqueteEdit);
 
         return "/paquete/editar";
+    }
+
+    // buscar paquetes por precio
+    @PostMapping("/buscarPorPrecio")
+    public String consultaPorPrecio(@RequestParam(value = "precioMinimo") double precioMinimo, @RequestParam(value = "precioMaximo") double precioMaximo,
+                                    Model model) {
+        var listaPaquetes = paquetesService.getPaquetesPorPrecio(precioMinimo, precioMaximo);
+        model.addAttribute("precioMinimo", precioMinimo);
+        model.addAttribute("precioMaximo", precioMaximo);
+        model.addAttribute("paquetes", listaPaquetes);
+
+        return "/paquete/listadoPublico";
     }
 
 }
