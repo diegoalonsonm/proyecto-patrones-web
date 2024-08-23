@@ -103,8 +103,22 @@
             <div class="col">
                 <h2>Nuestros destinos disponibles</h2>
             </div>
+            <div class="col text-end">
+                <button class="btn btn-filtros" onclick="toggleFiltrosPaquetes()">
+                    <span class="me-2">Filtros</span> <i class="fas fa-filter"></i>
+                </button>
+            </div>
         </div>
         <div class="row">
+            <div class="col mb-4">
+                <section th:replace="~{destino/fragmentosDestinos :: filtrosDestinos}" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3" th:if="${totalDestinos == 0}">
+                <p class="fs-3">No se encontraron destinos con ese filtro</p>
+                <p class="fs-5">Vuelve a ingresar los datos</p>
+            </div>
             <div class="col-sm-6" th:each="destino : ${destinos}">
                 <div class="card mb-4 custom-card">
                     <img class="card-img-top" th:src="${destino.urlImagen != null} ? @{${destino.urlImagen}} : 'https://via.placeholder.com/300'" alt="Card image cap">
@@ -117,6 +131,30 @@
                         <a class="btn btn-primary" th:href="@{/destino/listado}">Reserva Aqui</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- filtros destinos -->
+    <section th:fragment="filtrosDestinos" class="container d-none seccionFiltros">
+        <div class="row w-50">
+            <div class="card">
+                <form th:action="@{/destino/buscarPorTiempo}" method="post">
+                    <div class="card-body">
+                        <h5 class="card-title">Filtrar por tiempo de vuelo</h5>
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="tiempoMaximo">Tiempo maximo</label>
+                                <input type="text" class="form-control" id="tiempoMaximo" name="tiempoMaximo" required="true" />
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col text-center">
+                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

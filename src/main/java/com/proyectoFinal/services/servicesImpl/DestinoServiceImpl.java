@@ -38,4 +38,10 @@ public class DestinoServiceImpl implements DestinoService {
         destinoDao.delete(destino);
     }
 
+    @Override
+    @Transactional
+    public List<Destino> getDestinosPorTiempo(String tiempoMaximo) {
+        return destinoDao.findDestinosByTiempoViajeMenorA(tiempoMaximo);
+    }
+
 }

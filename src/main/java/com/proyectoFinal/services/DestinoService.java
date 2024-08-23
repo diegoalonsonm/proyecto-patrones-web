@@ -13,4 +13,6 @@ public interface DestinoService {
 
     public void delete(Destino destino);
 
+    public List<Destino> getDestinosPorTiempo(String tiempoMaximo);
+
 }

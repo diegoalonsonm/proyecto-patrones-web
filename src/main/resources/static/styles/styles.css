@@ -59,3 +59,7 @@
     color: white;
     margin-bottom: 4px;
 }
+
+.btn-filtros:hover {
+    background-color: #dadada;
+}

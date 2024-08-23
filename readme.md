@@ -21,6 +21,9 @@ La aplicacion consiste en un sistema de gestion para una agencia de vuelos donde
 - editar perfil
 - pasarela de pago
 - crud itinerarios -> por usuario
-- filtros para buscar paquetes/destinos/hoteles 
+- filtros para buscar  
+  - [x] paquetes
+  - destinos
+  - hoteles
 - seccion de comentarios
 - [x]  hacer pag de registro

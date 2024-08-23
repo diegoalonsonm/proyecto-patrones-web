@@ -23,9 +23,9 @@ create table usuario(
 
 -- si el idiomaPreferido es true es ES, si es false es EN
 insert into usuario (username, nombre, primer_apellido, segundo_apellido, correo_electronico, password, telefono, direccion)
-values ('juansito47', 'Juan', 'Pérez', 'González', 'juan.perez@example.com', 'password1', '12345678', 'Calle Falsa 123, Ciudad'),
-    ('marx222', 'María', 'López', 'Martínez', 'maria.lopez@example.com', 'password2', '87654321', 'Avenida Siempre Viva 456, Ciudad'),
-    ('miTioCharlie', 'Carlos', 'Gómez', 'Hernández', 'carlos.gomez@example.com', 'password3', '12348765', 'Boulevard Principal 789, Ciudad');
+values ('juansito47', 'Juan', 'Pérez', 'González', 'juan.perez@example.com', '$2a$10$P1.w58XvnaYQUQgZUCk4aO/RTRl8EValluCqB3S2VMLTbRt.tlre.', '12345678', 'Calle Falsa 123, Ciudad'),
+    ('marx222', 'María', 'López', 'Martínez', 'maria.lopez@example.com', '$2a$10$GkEj.ZzmQa/aEfDmtLIh3udIH5fMphx/35d0EYeqZL5uzgCJ0lQRi', '87654321', 'Avenida Siempre Viva 456, Ciudad'),
+    ('miTioCharlie', 'Carlos', 'Gómez', 'Hernández', 'carlos.gomez@example.com', '$2a$10$koGR7eS22Pv5KdaVJKDcge04ZB53iMiw76.UjHPY.XyVYlYqXnPbO', '12348765', 'Boulevard Principal 789, Ciudad');
 
 create table destino(
 	id_destino int primary key auto_increment,

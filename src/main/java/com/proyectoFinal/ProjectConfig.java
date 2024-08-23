@@ -54,29 +54,16 @@ public class ProjectConfig implements WebMvcConfigurer {
         registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
     }
 
-    /*@Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/login", "/registro/nuevo", "/destino/listadoPublico",
-                        "/errores/**","/sedes/nuestrasSedes", "/js/**", "/webjars/**", "/styles/**").permitAll()
-                .requestMatchers("/destino/agregar", "/destino/listado", "/destino/eliminar/**",
-                        "/destino/editar/**", "paquete/agregar", "/paquete/listado", "/paquete/eliminar/**", "/paquete/editar/**").hasRole("ADMIN")
-                .requestMatchers("/paquete/listado", "/destino/listado").hasAnyRole("ADMIN", "VENDEDOR")
-                .requestMatchers("/facturar/carrito").hasRole("USER"))
-                .formLogin((form) -> form
-                        .loginPage("/login").permitAll())
-                .logout((logout) -> logout.permitAll());
-        return http.build();
-    }*/
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/login", "/registro/nuevo", "/destino/listadoPublico",
+                .requestMatchers("/", "/index", "/login", "/registro/nuevo", "/destino/listadoPublico", "paquete/listadoPublico",
                         "/errores/**","/otros/nuestrasSedes", "/otros/preguntasFrecuentes", "otros/contacto", "/js/**", "/webjars/**",
-                        "/styles/**", "/destino/agregar", "/destino/eliminar/**", "/destino/editar/**", "paquete/agregar",
-                        "/paquete/eliminar/**", "/paquete/editar/**", "/paquete/listado", "/paquete/listadoPublico", "/destino/listado",
-                        "/facturar/carrito", "/paquete/buscarPorPrecio/**", "/usuario/registroNuevo").permitAll())
+                        "/styles/**", "/paquete/buscarPorPrecio/**", "/usuario/registroNuevo", "destino/buscarPorTiempo/**").permitAll()
+                .requestMatchers("/destino/agregar", "/destino/listado", "/destino/eliminar/**", "/destino/editar/**", "paquete/agregar",
+                        "/paquete/listado", "/paquete/eliminar/**", "/paquete/editar/**").hasRole("ADMIN")
+                .requestMatchers("/paquete/listado", "/destino/listado").hasAnyRole("ADMIN", "VENDEDOR")
+                .requestMatchers("/facturar/carrito").hasRole("USER"))
                 .formLogin((form) -> form
                         .loginPage("/login").permitAll())
                 .logout((logout) -> logout.permitAll());

@@ -49,7 +49,7 @@ public class PaqueteServiceImpl implements PaqueteService {
     @Override
     @Transactional
     public List<Paquete> getPaquetesPorPrecio(double precioMinimo, double precioMaximo) {
-        return paqueteDao.findByPrecioBetweenOrderByDescripcion(precioMinimo, precioMaximo);
+        return paqueteDao.findByPrecioBetween(precioMinimo, precioMaximo);
     }
 
 }

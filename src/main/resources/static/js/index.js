@@ -8,3 +8,18 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0])
     }
 }
+
+const toggleFiltrosPaquetes = () => {
+    const filtros = document.getElementsByClassName('seccionFiltros');
+    Array.from(filtros).forEach(filtro => {
+        if (filtro.classList.contains('d-none')) {
+            filtro.classList.remove('d-none');
+            filtro.classList.add('d-block');
+        } else {
+            filtro.classList.remove('d-block');
+            filtro.classList.add('d-none');
+        }
+    });
+}
+
+document.querySelector('.btn-filtros').addEventListener('click', toggleFiltrosPaquetes);

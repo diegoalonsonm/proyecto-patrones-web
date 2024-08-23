@@ -75,12 +75,15 @@ public class PaquetesController {
 
     // buscar paquetes por precio
     @PostMapping("/buscarPorPrecio")
-    public String consultaPorPrecio(@RequestParam(value = "precioMinimo") double precioMinimo, @RequestParam(value = "precioMaximo") double precioMaximo,
-                                    Model model) {
+    public String consultaPorPrecio(@RequestParam(value = "precioMinimo") double precioMinimo, @RequestParam(value = "precioMaximo") double precioMaximo, Model model) {
+
         var listaPaquetes = paquetesService.getPaquetesPorPrecio(precioMinimo, precioMaximo);
         model.addAttribute("precioMinimo", precioMinimo);
         model.addAttribute("precioMaximo", precioMaximo);
         model.addAttribute("paquetes", listaPaquetes);
+        model.addAttribute("totalPaquetes", listaPaquetes.size());
+
+        System.out.println(listaPaquetes);
 
         return "/paquete/listadoPublico";
     }

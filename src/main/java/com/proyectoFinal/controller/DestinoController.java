@@ -77,4 +77,14 @@ public class DestinoController {
 
         return "/destino/editar";
     }
+
+    // filtrar por tiempo de viaje
+    @PostMapping("/buscarPorTiempo")
+    public String buscarPorTiempo(@RequestParam(value = "tiempoMaximo") String tiempo, Model model) {
+        var listaDestinos = destinoService.getDestinosPorTiempo(tiempo);
+        model.addAttribute("destinos", listaDestinos);
+        model.addAttribute("totalDestinos", listaDestinos.size());
+
+        return "/destino/listadoPublico";
+    }
 }
