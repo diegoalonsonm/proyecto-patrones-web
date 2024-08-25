@@ -44,9 +44,7 @@ public class PaquetesController {
     // ver pagina agregar
     @GetMapping("/agregar")
     public String agregar(Model model) {
-        var listaDestinos = destinoService.getDestinos();
-        model.addAttribute("destinos", listaDestinos);
-
+        model.addAttribute("destinos", destinoService.getDestinos());
         return "/paquete/agregar";
     }
 
@@ -69,6 +67,7 @@ public class PaquetesController {
     public String editarPaquete(Paquete paquete, Model model) {
         var paqueteEdit = paquetesService.getPaquete(paquete);
         model.addAttribute("paquete", paqueteEdit);
+        model.addAttribute("destinos", destinoService.getDestinos());
 
         return "/paquete/editar";
     }
@@ -82,8 +81,6 @@ public class PaquetesController {
         model.addAttribute("precioMaximo", precioMaximo);
         model.addAttribute("paquetes", listaPaquetes);
         model.addAttribute("totalPaquetes", listaPaquetes.size());
-
-        System.out.println(listaPaquetes);
 
         return "/paquete/listadoPublico";
     }

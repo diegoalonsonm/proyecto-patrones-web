@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface DestinoDao extends JpaRepository<Destino, Long> {
 
-    @Query("SELECT d FROM Destino d WHERE d.tiempoViaje < :tiempoMaximo")
-    List<Destino> findDestinosByTiempoViajeMenorA(@Param("tiempoMaximo") String tiempoMaximo);
+    public List <Destino> findByTiempoViajeIsGreaterThanEqual(double tiempoMaximo);
+
+    public Destino findByIdDestino(Long idDestino);
 
 }

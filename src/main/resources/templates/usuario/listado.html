@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
+<head th:replace="~{layout/layout.html :: head}"/>
+    <body>
+        <header th:replace="~{layout/layout :: header}" />
+        <section th:replace="~{layout/layout :: navigation}" />
+        <section style="height: 100vh">
+            <div class="container text-center mt-5">
+                <div class="row mb-3 text-start">
+                    <div class="col">
+                        <a th:href="@{/usuario/agregar}" class="btn btn-outline-primary">Agregar Usuario</a>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <h2 class="text-center mb-3">Listado de Usuarios</h2>
+                        <table th:replace="~{usuario/fragmentosUsuario :: tablaUsuario}" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer th:replace="~{layout/layout :: footer}" />
+    </body>
+</html>

@@ -50,14 +50,14 @@ public class DestinoController {
     private FirebaseStorageService firebaseStorageService;
 
     @PostMapping("/agregarDestino")
-    public String nuevoDestino(Destino destino){ //@RequestParam("urlImagen") MultipartFile urlImagen
-        //if (!urlImagen.isEmpty()) {
-        //    String rutaImagen = firebaseStorageService.cargaImagen(urlImagen, "destinos", destino.getIdDestino());
-        //    destino.setUrlImagen(rutaImagen);
-        //    destinoService.save(destino);
-        //}
-
-        destinoService.save(destino);
+    public String nuevoDestino(Destino destino, @RequestParam("imagenFile") MultipartFile imagenFile){
+        
+        if (!imagenFile.isEmpty()) {
+            destinoService.save(destino);
+            destino.setUrlImagen(firebaseStorageService.cargaImagen(imagenFile, "destino", destino.getIdDestino()));
+        }
+            
+        destinoService.save(destino);        
 
         return "redirect:/destino/listado";
     }
@@ -80,7 +80,7 @@ public class DestinoController {
 
     // filtrar por tiempo de viaje
     @PostMapping("/buscarPorTiempo")
-    public String buscarPorTiempo(@RequestParam(value = "tiempoMaximo") String tiempo, Model model) {
+    public String buscarPorTiempo(@RequestParam(value = "tiempoMaximo") double tiempo, Model model) {
         var listaDestinos = destinoService.getDestinosPorTiempo(tiempo);
         model.addAttribute("destinos", listaDestinos);
         model.addAttribute("totalDestinos", listaDestinos.size());

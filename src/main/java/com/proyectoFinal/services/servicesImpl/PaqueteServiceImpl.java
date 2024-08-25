@@ -30,6 +30,12 @@ public class PaqueteServiceImpl implements PaqueteService {
 
     @Override
     @Transactional(readOnly = true)
+    public Paquete getPaqueteById(Long idPaquete) {
+        return paqueteDao.findPaqueteByIdPaquete(idPaquete);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Paquete> getPaquetesByDestino(Destino destino) {
         return paqueteDao.findPaqueteByDestino(destino);
     }

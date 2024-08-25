@@ -10,6 +10,8 @@ public interface PaquetesDao extends JpaRepository<Paquete, Long> {
 
     public List<Paquete> findPaqueteByDestino(Destino destino);
 
+    public Paquete findPaqueteByIdPaquete(Long id);
+
     public List<Paquete> findByPrecioBetween(double precioMinimo, double precioMaximo);
 
 }

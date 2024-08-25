@@ -9,6 +9,6 @@ public interface FirebaseStorageService {
     final String bucketName = "proyecto-patrones-b109c.appspot.com";
     final String rutaStorage = "tiquiviajes";
     final String rutaJson = "firebase";
-    final String archivoJson = "proyecto-patrones-b109c-firebase-adminsdk-269oz-f8f0ba1aa9";
+    final String archivoJson = "proyecto-patrones-b109c-firebase-adminsdk-269oz-da611d8a3c.json";
 
 }

@@ -1,6 +1,7 @@
 package com.proyectoFinal.services.servicesImpl;
 
 import com.proyectoFinal.dao.ReservaPaqueteDao;
+import com.proyectoFinal.domain.ReservaDestino;
 import com.proyectoFinal.domain.ReservaPaquete;
 import com.proyectoFinal.services.ReservaPaqueteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,18 @@ public class ReservaPaqueteServiceImpl implements ReservaPaqueteService {
     @Transactional(readOnly = true)
     public ReservaPaquete getReservaPaquete(ReservaPaquete reservaPaquete) {
         return reservaPaqueteDao.findById(reservaPaquete.getIdReservaPaquete()).orElse(null);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ReservaPaquete> getReservasPaqueteByUserId(Long idUsuario) {
+        return reservaPaqueteDao.findByUsuario_IdUsuario(idUsuario);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ReservaPaquete getReservaPaqueteByIdReservaPaquete(Long idReservaPaquete) {
+        return reservaPaqueteDao.findByIdReservaPaquete(idReservaPaquete);
     }
 
     @Override

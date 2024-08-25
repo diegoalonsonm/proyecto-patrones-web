@@ -45,9 +45,8 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
         Credentials credentials = GoogleCredentials.fromStream(json.getInputStream());
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         storage.create(blobInfo, Files.readAllBytes(file.toPath()));
-        String url = storage.signUrl(blobInfo, 3650, TimeUnit.DAYS, Storage.SignUrlOption.signWith((ServiceAccountSigner) credentials)).toString();
 
-        return url;
+        return storage.signUrl(blobInfo, 3650, TimeUnit.DAYS, Storage.SignUrlOption.signWith((ServiceAccountSigner) credentials)).toString();
     }
 
     private File convertToFile(MultipartFile archivo) throws IOException {

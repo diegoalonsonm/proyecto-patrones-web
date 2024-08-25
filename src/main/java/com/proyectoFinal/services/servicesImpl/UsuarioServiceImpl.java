@@ -6,6 +6,7 @@ import com.proyectoFinal.domain.Rol;
 import com.proyectoFinal.domain.Usuario;
 import com.proyectoFinal.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +21,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private RolDao rolDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional(readOnly = true)
     public List<Usuario> getUsuarios() {
         return usuarioDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario getUsuarioById(Long idUsuario) {
+        return usuarioDao.findByIdUsuario(idUsuario);
     }
 
     @Override
@@ -59,6 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional
     public void save(Usuario usuario, boolean crearRolUser) {
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         usuario = usuarioDao.save(usuario);
 
         if (crearRolUser) {

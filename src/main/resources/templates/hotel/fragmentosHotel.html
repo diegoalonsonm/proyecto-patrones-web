@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
+<head th:replace="~{layout/layout.html :: head}"/>
+    <body>
+        <section th:fragment="listado" class="container my-5">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="text-center">Listado de hoteles</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Puntuacion</th>
+                                <th>Precio / noche</th>
+                                <th>Pais</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="hotel : ${hoteles}">
+                                <td th:text="${hotel.nombre}"></td>
+                                <td th:text="${hotel.estrellas}"></td>
+                                <td th:text="${hotel.precioNoche}"></td>
+                                <td th:text="${hotel.destino.pais}"></td>
+                                <td>
+                                    <a th:href="@{/}" class="btn btn-outline-primary">Editar</a>
+                                    <a th:href="@{/}" class="btn btn-outline-secondary">Eliminar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="listadoPublico" class="container my-5">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2>Nuestros hoteles disponibles</h2>
+                </div>
+                <div class="col text-end">
+                    <button class="btn btn-filtros" onclick="toggleFiltrosPaquetes()">
+                        <span class="me-2">Filtros</span> <i class="fas fa-filter"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col mb-4">
+                    <section th:replace="~{hotel/fragmentosHotel :: filtrosHotel}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mb-3" th:if="${totalHoteles == 0}">
+                    <p class="fs-3">No se encontraron hoteles con ese filtro</p>
+                    <p class="fs-5">Vuelve a ingresar los datos</p>
+                </div>
+                <div class="col-sm-6" th:each="hotel : ${hoteles}">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${hotel.nombre} + ' ' + '(' + ${hotel.estrellas} + ' ★' + ')'">nombre, estrellas</h5>
+                            <p class="card-text">
+                                <strong>Precio por noche: </strong> <span th:text="'$' + ${hotel.precioNoche}">Price</span><br>
+                                <strong>Pais: </strong> <span th:text="${hotel.destino.pais}">pais</span>
+                            </p>
+                            <a class="btn btn-primary" th:href="@{/reserva/reservaHotel/} + ${hotel.idHotel}">Reserva Aqui</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="filtrosHotel" class="container d-none seccionFiltros">
+            <div class="row w-50">
+                <div class="card">
+                    <form th:action="@{/hotel/buscarPorEstrellas}" method="post">
+                        <div class="card-body">
+                            <h5 class="card-title">Filtrar por cantidad de estrellas</h5>
+                            <div class="form-group row">
+                                <div class="col">
+                                    <label for="estrellas">Tiempo maximo</label>
+                                    <input type="number" min="1" class="form-control" id="estrellas" name="estrellas" required="true" />
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col text-center">
+                                    <button type="submit" class="btn btn-primary">Filtrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

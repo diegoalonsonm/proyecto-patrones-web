@@ -21,14 +21,30 @@
                 <a class="navbar-brand" th:href="@{/}">
                     <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-patrones-b109c.appspot.com/o/assets%2Flogo.png?alt=media&token=9bdf3448-f41d-47c7-8282-c046326906f6" alt="logo tiquiviajes" width="300" height="" class="d-inline-block align-top">
                 </a>
-                <div class="btn-group dropstart">
+                <div class="btn-group dropstart" sec:authorize="!isAuthenticated()">
                     <button type="button" class="btn dropdown-toggle sinFondo" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user text-white fs-3 my-2"></i>
                         <span class="text-white fw-bold mb-2 ms-1">Mi Perfil</span>
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" th:href="@{/login}">Iniciar Sesión</a></li>
-                        <li><a class="dropdown-item" th:href="@{/registro}">Registrarse</a></li>
+                        <li><a class="dropdown-item" th:href="@{/usuario/registroNuevo}">Registrarse</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group dropstart" sec:authorize="isAuthenticated()">
+                    <button type="button" class="btn dropdown-toggle sinFondo" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user text-white fs-3 my-2"></i>
+                        <span class="text-white fw-bold mb-2 ms-1" sec:authentication="name">nombre</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li sec:authorize="!hasRole('ROLE_VENDEDOR')"><a class="dropdown-item" th:href="@{/reserva/misReservas}">Mis reservas</a></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <button class="btn">
+                                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -41,29 +57,38 @@
             <div class="col">
                 <div class="d-flex justify-content-center">
                     <div class="mx-4">
-                        <a class="navigation-link" sec:authorize="!isAuthenticated() || hasRole('ROLE_USER')" th:href="@{/destino/listadoPublico}">
+                        <a class="navigation-link" sec:authorize="hasRole('ROLE_VENDEDOR')" th:href="@{/destino/listado}">
                             Destinos
                         </a>
-                        <a class="navigation-link" sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')" th:href="@{/destino/listado}">
+                        <a class="navigation-link" sec:authorize="!isAuthenticated() || !hasRole('ROLE_VENDEDOR')" th:href="@{/destino/listadoPublico}">
                             Destinos
                         </a>
                     </div>
                     <div class="mx-4">
-                        <a class="navigation-link" th:href="@{/}">Hoteles</a>
-                    </div>
-                    <div class="mx-4">
-                        <a class="navigation-link" th:href="@{/}">Tours</a>
-                    </div>
-                    <div class="mx-4">
-                        <a class="navigation-link" sec:authorize="!isAuthenticated() || hasRole('ROLE_USER')" th:href="@{/paquete/listadoPublico}">
-                            Paquetes
+                        <a class="navigation-link" sec:authorize="hasRole('ROLE_VENDEDOR')" th:href="@{/hotel/listado}">
+                            Hoteles
                         </a>
-                        <a class="navigation-link" sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')" th:href="@{/paquete/listado}">
-                            Paquetes
+                        <a class="navigation-link" sec:authorize="!isAuthenticated() || !hasRole('ROLE_VENDEDOR')" th:href="@{/hotel/listadoPublico}">
+                            Hoteles
                         </a>
                     </div>
                     <div class="mx-4">
-                        <a class="navigation-link" th:href="@{/}">Solicita ayuda</a>
+                        <a class="navigation-link" sec:authorize="hasRole('ROLE_VENDEDOR')" th:href="@{/paquete/listado}">
+                            Paquetes
+                        </a>
+                        <a class="navigation-link" sec:authorize="!isAuthenticated() || !hasRole('ROLE_VENDEDOR')" th:href="@{/paquete/listadoPublico}">
+                            Paquetes
+                        </a>
+                    </div>
+                    <div class="mx-4">
+                        <a class="navigation-link" sec:authorize="!isAuthenticated() || !hasRole('ROLE_VENDEDOR')" th:href="@{/otros/preguntasFrecuentes}">
+                            ¿Necesitas ayuda?
+                        </a>
+                    </div>
+                    <div class="mx-4">
+                        <a class="navigation-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/usuario/listado}">
+                            Usuarios
+                        </a>
                     </div>
                 </div>
             </div>
@@ -79,7 +104,7 @@
                 </div>
                 <div class="col-4 d-flex align-items-center justify-content-center">
                     <div>
-                        <a th:href="@{/}" class="footer-link">Contactenos</a>
+                        <a href="https://sistemas.ufidelitas.ac.cr/" target="_blank" class="footer-link">Contactenos</a>
                         <br><br>
                         <a th:href="@{/otros/nuestrasSedes}" class="footer-link">Nuestras Sedes</a>
                         <br><br>

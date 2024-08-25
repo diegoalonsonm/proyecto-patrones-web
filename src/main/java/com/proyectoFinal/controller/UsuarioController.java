@@ -2,6 +2,7 @@ package com.proyectoFinal.controller;
 
 import com.proyectoFinal.domain.Usuario;
 import com.proyectoFinal.services.FirebaseStorageService;
+import com.proyectoFinal.services.RolService;
 import com.proyectoFinal.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private RolService rolService;
+
     @GetMapping("/listado")
     public String listado(Model model) {
         var usuarios = usuarioService.getUsuarios();
@@ -27,9 +31,9 @@ public class UsuarioController {
         return "/usuario/listado";
     }
 
-    @GetMapping("/nuevo")
-    public String usuarioNuevo(Usuario usuario) {
-        return "/usuario/modifica";
+    @GetMapping("/agregar")
+    public String usuarioAgregar(Usuario usuario) {
+        return "/usuario/agregar";
     }
 
     @Autowired
@@ -45,17 +49,23 @@ public class UsuarioController {
         return "redirect:/usuario/listado";
     }
 
-    @GetMapping("/eliminar/{idUsuario}")
-    public String usuarioEliminar(Usuario usuario) {
-        usuarioService.delete(usuario);
-        return "redirect:/usuario/listado";
+    @PostMapping("/registro")
+    public String usuarioRegistro(Usuario usuario, @RequestParam("imagenFile") MultipartFile imagenFile) {
+        if (!imagenFile.isEmpty()) {
+            usuarioService.save(usuario,false);
+            usuario.setRutaImagen(firebaseStorageService.cargaImagen(imagenFile, "usuario", usuario.getIdUsuario()));
+        }
+        usuarioService.save(usuario,true);
+        return "redirect:/login";
     }
 
-    @GetMapping("/modificar/{idUsuario}")
-    public String usuarioModificar(Usuario usuario, Model model) {
-        usuario = usuarioService.getUsuario(usuario);
-        model.addAttribute("usuario", usuario);
-        return "/usuario/modifica";
+    @PostMapping("/modificar")
+    public String usuarioModificar(Usuario usuario, @RequestParam("imagenFile") MultipartFile imagenFile) {
+        if (!imagenFile.isEmpty()) {
+            usuario.setRutaImagen(firebaseStorageService.cargaImagen(imagenFile, "usuario", usuario.getIdUsuario()));
+        }
+        usuarioService.save(usuario,true);
+        return "redirect:/usuario/listado";
     }
 
     @GetMapping("/registroNuevo")

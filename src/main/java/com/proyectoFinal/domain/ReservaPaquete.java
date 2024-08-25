@@ -19,11 +19,15 @@ public class ReservaPaquete {
     private int cantidadPersonas;
     private Date fechaInicio;
     private Date fechaFin;
-    private Date fechaReserva;
+    private Date fechaReservacion;
     private int estado;
 
     @ManyToOne
-    @JoinColumn(name = "id_destino")
-    private Destino destino;
+    @JoinColumn(name = "id_paquete")
+    private Paquete paquete;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
 }
