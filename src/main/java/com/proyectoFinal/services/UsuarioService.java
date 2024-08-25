@@ -12,6 +12,8 @@ public interface UsuarioService {
 
     public Usuario getUsuarioPorUsername(String username);
 
+    public Usuario getUsuarioById(Long id);
+
     public Usuario getUsuarioPorUsernameYPassword(String username, String password);
 
     public Usuario getUsuarioPorUsernameOCorreo(String username, String correo);

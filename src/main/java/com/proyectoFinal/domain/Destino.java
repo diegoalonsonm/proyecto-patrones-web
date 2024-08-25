@@ -16,7 +16,7 @@ public class Destino {
     private Long idDestino;
     private String pais;
     private String ciudad;
-    private String tiempoViaje;
+    private double tiempoViaje;
     private double precioPersona;
     private String urlImagen;
 

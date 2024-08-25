@@ -27,6 +27,12 @@ public class DestinoServiceImpl implements DestinoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Destino getDestinoById (Long idDestino) {
+        return destinoDao.findById(idDestino).orElse(null);
+}
+
+    @Override
     @Transactional
     public void save(Destino destino) {
         destinoDao.save(destino);
@@ -36,6 +42,12 @@ public class DestinoServiceImpl implements DestinoService {
     @Transactional
     public void delete(Destino destino) {
         destinoDao.delete(destino);
+    }
+
+    @Override
+    @Transactional
+    public List<Destino> getDestinosPorTiempo(double tiempoMaximo) {
+        return destinoDao.findByTiempoViajeIsGreaterThanEqual(tiempoMaximo);
     }
 
 }

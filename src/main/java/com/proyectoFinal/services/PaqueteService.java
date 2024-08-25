@@ -13,6 +13,8 @@ public interface PaqueteService {
 
     public List<Paquete> getPaquetesByDestino(Destino destino);
 
+    public Paquete getPaqueteById(Long idPaquete);
+
     public void save(Paquete paquete);
 
     public void delete(Paquete paquete);

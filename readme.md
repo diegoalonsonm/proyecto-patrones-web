@@ -1,6 +1,6 @@
 # Proyecto Patrones Web II Cuatri
 
-## Integrantes
+## Desarrollado por
 - Diego Naranjo
 
 ## Descripción
@@ -10,17 +10,20 @@ La aplicacion consiste en un sistema de gestion para una agencia de vuelos donde
 
 ## Pendientes
 
+- hacer reservas
+  - [x] de destinos
+  - [x] de paquetes
+  - de hoteles
+- filtros para buscar
+  - [x] paquetes
+  - [x] destinos
+  - [x] hoteles
+- [x] ver reservas hechas por el usuario
+- [x] seccion preguntas frecuentes
 - [x] pag inicio
 - [X] crud destinos
 - [X] crud paquetes
-- hacer reservas
-  - de destinos
-  - de paquetes
-- [x] seccion preguntas freecuentes
-- chat
-- editar perfil
-- pasarela de pago
-- crud itinerarios -> por usuario
-- filtros para buscar paquetes/destinos/hoteles 
-- seccion de comentarios
-- [x]  hacer pag de registro
+- [x] hacer pag de registro
+- [x] seccion de nuestras sedes
+- [x] seccion de contacto
+

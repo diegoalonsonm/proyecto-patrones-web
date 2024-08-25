@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 import java.util.Locale;
 
@@ -54,41 +57,43 @@ public class ProjectConfig implements WebMvcConfigurer {
         registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
     }
 
-    /*@Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/login", "/registro/nuevo", "/destino/listadoPublico",
-                        "/errores/**","/sedes/nuestrasSedes", "/js/**", "/webjars/**", "/styles/**").permitAll()
-                .requestMatchers("/destino/agregar", "/destino/listado", "/destino/eliminar/**",
-                        "/destino/editar/**", "paquete/agregar", "/paquete/listado", "/paquete/eliminar/**", "/paquete/editar/**").hasRole("ADMIN")
-                .requestMatchers("/paquete/listado", "/destino/listado").hasAnyRole("ADMIN", "VENDEDOR")
-                .requestMatchers("/facturar/carrito").hasRole("USER"))
-                .formLogin((form) -> form
-                        .loginPage("/login").permitAll())
-                .logout((logout) -> logout.permitAll());
-        return http.build();
-    }*/
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index", "/login", "/registro/nuevo", "/destino/listadoPublico",
-                        "/errores/**","/otros/nuestrasSedes", "/otros/preguntasFrecuentes", "otros/contacto", "/js/**", "/webjars/**",
-                        "/styles/**", "/destino/agregar", "/destino/eliminar/**", "/destino/editar/**", "paquete/agregar",
-                        "/paquete/eliminar/**", "/paquete/editar/**", "/paquete/listado", "/paquete/listadoPublico", "/destino/listado",
-                        "/facturar/carrito", "/paquete/buscarPorPrecio/**", "/usuario/registroNuevo").permitAll())
-                .formLogin((form) -> form
-                        .loginPage("/login").permitAll())
-                .logout((logout) -> logout.permitAll());
+                        .requestMatchers("/", "/index", "/errores/**", "/carrito/**", "/js/**", "/styles/**", "/webjars/**",
+                                "/destino/listadoPublico", "/destino/buscarPorTiempo", "/otros/**", "/paquete/listadoPublico",
+                                "/paquete/buscarPorPrecio", "/usuario/registroNuevo", "/usuario/registro", "/hotel/listadoPublico",
+                                "/hotel/buscarPorEstrellas").permitAll()
+                        .requestMatchers("/destino/agregar", "/destino/agregarDestino", "/destino/eliminar/**", "/destino/editar/**",
+                                "/paquete/agregar", "/paquete/agregarPaquete", "/paquete/eliminar/**", "/paquete/editar/**", "/usuario/listado",
+                                "/usuario/modifica/**", "/usuario/agregar", "/usuario/guardar", "/usuario/eliminar/**",
+                                "usuario/modificar/**").hasRole("ADMIN")
+                        .requestMatchers("/destino/listado", "/paquete/listado", "/hotel/listado").hasAnyRole("ADMIN", "VENDEDOR")
+                        .requestMatchers("/facturar/**", "/reserva/misReservas/**", "/reserva/reservaDestino/**", "reserva/reservaPaquete/**",
+                                "/reserva/reservarDestino/**", "/reserva/reservarPaquete/**", "/reserva/cancelarReservaDestino/**",
+                                "/reserva/cancelarReservaPaquete/**", "/usuario/miPerfil/**").hasRole("USER"))
+                .formLogin((form) -> form.loginPage("/login").permitAll())
+                .logout((logout) -> logout.logoutSuccessUrl("/index").permitAll());
         return http.build();
     }
 
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder build) throws Exception {
-        build.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SpringResourceTemplateResolver templateResolver_0() {
+        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+        resolver.setPrefix("classpath:/templates");
+        resolver.setSuffix(".html");
+        resolver.setTemplateMode(TemplateMode.HTML);
+        resolver.setOrder(0);
+        resolver.setCheckExistence(true);
+        return resolver;
     }
 
     @Bean("messageSource")

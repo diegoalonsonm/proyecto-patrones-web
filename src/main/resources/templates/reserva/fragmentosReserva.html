@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
+<head th:replace="~{layout/layout.html :: head}"/>
+    <body>
+        <!-- mis reservas -->
+        <section th:fragment="misReservas" class="container my-3" style="height: 80vh">
+            <div class="mt-2 mb-4">
+                <h2>Mis destinos reservados</h2>
+                <div th:if="${#lists.isEmpty(reservasDestino)}">
+                    <p>No hay reservas a tu nombre por ahora</p>
+                </div>
+                <div th:unless="${#lists.isEmpty(reservasDestino)}">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col"># Reserva</th>
+                            <th scope="col">Destino</th>
+                            <th scope="col"># Personas</th>
+                            <th scope="col">Fecha inicio</th>
+                            <th scope="col">Fecha fin</th>
+                            <th scope="col">Fecha reservacion</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="reservaDestino : ${reservasDestino}">
+                            <td th:text="${reservaDestino.idReservaDestino}"># Reserva</td>
+                            <td th:text="${reservaDestino.destino.ciudad}">Destino</td>
+                            <td th:text="${reservaDestino.cantidadPersonas}"># Personas</td>
+                            <td th:text="${#dates.format(reservaDestino.fechaInicio, 'yyyy-MM-dd')}">Fecha Inicio</td>
+                            <td th:text="${#dates.format(reservaDestino.fechaFin, 'yyyy-MM-dd')}">Fecha Fin</td>
+                            <td th:text="${#dates.format(reservaDestino.fechaReservacion, 'yyyy-MM-dd')}">Fecha Reservacion</td>
+                            <td th:text="${reservaDestino.estado == 1 ? 'Pendiente' : (reservaDestino.estado == 2 ? 'Realizada' : 'Cancelada')}">Estado</td>
+                            <td><a th:href="@{/reserva/cancelarReservaDestino/} + ${reservaDestino.idReservaDestino}" class="btn btn-danger">Eliminar</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="">
+                <h2>Mis paquetes reservados</h2>
+                <div th:if="${#lists.isEmpty(reservasPaquete)}">
+                    <p>No hay reservas a tu nombre por ahora</p>
+                </div>
+                <div th:unless="${#lists.isEmpty(reservasPaquete)}">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col"># Reserva</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col"># Personas</th>
+                            <th scope="col">Fecha inicio</th>
+                            <th scope="col">Fecha fin</th>
+                            <th scope="col">Fecha reservacion</th>
+                            <th scope="col">Precio total</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="reservaPaquete : ${reservasPaquete}">
+                            <td th:text="${reservaPaquete.idReservaPaquete}"># Reserva</td>
+                            <td th:text="${reservaPaquete.paquete.nombre}">Nombre</td>
+                            <td th:text="${reservaPaquete.cantidadPersonas}"># Personas</td>
+                            <td th:text="${#dates.format(reservaPaquete.fechaInicio, 'yyyy-MM-dd')}">Fecha Inicio</td>
+                            <td th:text="${#dates.format(reservaPaquete.fechaFin, 'yyyy-MM-dd')}">Fecha Fin</td>
+                            <td th:text="${#dates.format(reservaPaquete.fechaReservacion, 'yyyy-MM-dd')}">Fecha Reservacion</td>
+                            <td th:text="${reservaPaquete.paquete.precio * reservaPaquete.cantidadPersonas}">Precio total</td>
+                            <td th:text="${reservaPaquete.estado == 1 ? 'Pendiente' : (reservaPaquete.estado == 2 ? 'Realizada' : 'Cancelada')}">Estado</td>
+                            <td><a th:href="@{/reserva/cancelarReservaPaquete/} + ${reservaPaquete.idReservaPaquete}" class="btn btn-danger">Eliminar</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- formulario de reserva destino -->
+        <section th:fragment="formularioReservaDestino" style="height: 70vh">
+            <div class="container my-3">
+                <div class="row">
+                    <div class="col">
+                        <h2>Reservar destino</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form th:action="@{/reserva/reservarDestino}" method="post" th:object="${reservaDestino}">
+                            <input type="hidden" id="idDestino" name="idDestino" th:value="${destino.idDestino}" />
+                            <div class="form-group mb-3">
+                                <label for="nombreDestino">Destino</label>
+                                <input type="text" class="form-control" id="nombreDestino" th:value="${destino.ciudad}" readonly="true" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="cantidadPersonas">Cantidad de personas</label>
+                                <input type="number" class="form-control" id="cantidadPersonas" name="cantidadPersonas" required="true" min="1" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="fechaInicio">Fecha de inicio</label>
+                                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required="true" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="fechaFin">Fecha de fin</label>
+                                <input type="date" class="form-control" id="fechaFin" name="fechaFin" required="true" />
+                            </div>
+                            <input type="hidden" name="fechaReservacion" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
+                            <input type="hidden" name="estado" value="1" />
+                            <input type="hidden" name="idUsuario" th:value="${userId}" />
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary mt-2 flex-grow-1 me-2">Reservar</button>
+                                <a th:href="@{/destino/listadoPublico}" class="btn btn-danger mt-2 flex-grow-1">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- formulario de reserva paquete -->
+        <section th:fragment="formularioReservaPaquete" style="height: 70vh">
+            <div class="container my-3">
+                <div class="row">
+                    <div class="col">
+                        <h2>Reservar paquete</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form th:action="@{/reserva/reservarPaquete}" method="post" th:object="${reservaPaquete}">
+                            <input type="hidden" id="idPaquete" name="idPaquete" th:value="${paquete.idPaquete}" />
+                            <div class="form-group mb-3">
+                                <label for="nombrePaquete">Nombre</label>
+                                <input type="text" class="form-control" id="nombrePaquete" th:value="${paquete.nombre}" readonly="true" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="cantidadPersonas">Cantidad de personas</label>
+                                <input type="number" class="form-control" id="cantidadPersonas" name="cantidadPersonas" required="true" min="1" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="fechaInicio">Fecha de inicio</label>
+                                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required="true" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="fechaFin">Fecha de fin</label>
+                                <input type="date" class="form-control" id="fechaFin" name="fechaFin" required="true" />
+                            </div>
+                            <input type="hidden" name="fechaReservacion" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" />
+                            <input type="hidden" name="estado" value="1" />
+                            <input type="hidden" name="idUsuario" th:value="${userId}" />
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary mt-2 flex-grow-1 me-2">Reservar</button>
+                                <a th:href="@{/paquete/listadoPublico}" class="btn btn-danger mt-2 flex-grow-1">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -2,6 +2,7 @@ package com.proyectoFinal.services.servicesImpl;
 
 import com.proyectoFinal.dao.ReservaDestinoDao;
 import com.proyectoFinal.domain.ReservaDestino;
+import com.proyectoFinal.domain.Usuario;
 import com.proyectoFinal.services.ReservaDestinoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,18 @@ public class ReservaDestinoServiceImpl implements ReservaDestinoService {
     @Transactional(readOnly = true)
     public List<ReservaDestino> getReservasDestino() {
         return reservaDestinoDao.findAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ReservaDestino> getReservasDestinoByUserId(Long idUsuario) {
+        return reservaDestinoDao.findByUsuario_IdUsuario(idUsuario);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ReservaDestino getReservaDestinoByIdReservaDestino(Long idReservaDestino) {
+        return reservaDestinoDao.findByIdReservaDestino(idReservaDestino);
     }
 
     @Override

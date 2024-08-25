@@ -14,7 +14,7 @@
             <th scope="col">Con Transporte</th>
             <th scope="col">Con Actividades</th>
             <th scope="col">Destino</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
             <td th:text="${paquete.incluyeTransporte}  ? 'Si' : 'No'">Con Transporte</td>
             <td th:text="${paquete.incluyeActividades}  ? 'Si' : 'No'">Con Actividades</td>
             <td th:text="${paquete.destino.pais}">Destino</td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a th:href="@{/paquete/editar/} + ${paquete.idPaquete}" class="btn btn-primary">Editar</a>
                 <a th:href="@{/paquete/eliminar/} + ${paquete.idPaquete}" class="btn btn-danger">Eliminar</a>
             </td>
@@ -127,8 +127,22 @@
             <div class="col">
                 <h2>Nuestros paquetes disponibles</h2>
             </div>
+            <div class="col text-end">
+                <button class="btn btn-filtros" onclick="toggleFiltrosPaquetes()">
+                    <span class="me-2">Filtros</span> <i class="fas fa-filter"></i>
+                </button>
+            </div>
         </div>
         <div class="row">
+            <div class="col mb-4">
+                <section th:replace="~{paquete/fragmentosPaquetes :: filtrosPaquetes}" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3" th:if="${totalPaquetes == 0}">
+                <p class="fs-3">No se encontraron paquetes con ese filtro</p>
+                <p class="fs-5">Vuelve a ingresar los datos</p>
+            </div>
             <div class="col-sm-6" th:each="paquete : ${paquetes}">
                 <div class="card mb-4 custom-card">
                     <div class="row g-0">
@@ -153,7 +167,7 @@
                                     <li class="list-group-item">Incluye transporte: <span th:text="${paquete.incluyeTransporte} ? 'Si' : 'No'">incluyeTransporte</span></li>
                                     <li class="list-group-item">Incluye actividades: <span th:text="${paquete.incluyeActividades} ? 'Si' : 'No'">incluyeActividades</span></li>
                                 </ul>
-                                <a class="btn btn-primary mt-3" th:href="@{/paquete/listado}">Reserva Aqui</a>
+                                <a class="btn btn-primary mt-3" th:href="@{/reserva/reservaPaquete/} + ${paquete.idPaquete}">Reserva Aqui</a>
                             </div>
                         </div>
                     </div>
@@ -163,21 +177,27 @@
     </section>
 
     <!-- filtros paquetes -->
-    <section th:fragment="filtrosPaquetes" class="container mt-4 mb-2">
+    <section th:fragment="filtrosPaquetes" class="container d-none seccionFiltros">
         <div class="row w-50">
             <div class="card">
-                <form th:action="@{/paquete/consultaPorPrecio}" method="post">
+                <form th:action="@{/paquete/buscarPorPrecio}" method="post">
                     <div class="card-body">
                         <h5 class="card-title">Filtrar por precio</h5>
-                        <div class="form-group">
-                            <label for="precioMinimo">Precio minimo</label>
-                            <input type="text" class="form-control" id="precioMinimo" name="precioMinimo" required="true" />
+                        <div class="form-group row">
+                            <div class="col">
+                                <label for="precioMinimo">Precio minimo</label>
+                                <input type="text" class="form-control" id="precioMinimo" name="precioMinimo" required="true" />
+                            </div>
+                            <div class="col">
+                                <label for="precioMaximo">Precio maximo</label>
+                                <input type="text" class="form-control" id="precioMaximo" name="precioMaximo" required="true" />
+                            </div>
                         </div>
-                        <div class="form-group mt-4">
-                            <label for="precioMaximo">Precio maximo</label>
-                            <input type="text" class="form-control" id="precioMaximo" name="precioMaximo" required="true" />
+                        <div class="row mt-4">
+                            <div class="col text-center">
+                                <button type="submit" class="btn btn-primary">Filtrar</button>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
                     </div>
                 </form>
             </div>
