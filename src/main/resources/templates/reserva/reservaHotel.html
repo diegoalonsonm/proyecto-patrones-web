@@ -3,8 +3,7 @@
 <head th:replace="~{layout/layout.html :: head}"/>
     <body>
         <header th:replace="~{layout/layout :: header}" />
-        <section th:replace="~{layout/layout :: navigation}" />
-        <section th:replace="~{hotel/fragmentosHotel :: listado}" />
-        <footer th:replace="~{layout/layout :: footer}" />
+        <section th:replace="~{reserva/fragmentosReserva :: formularioReservaHotel}" />
+        <footer th:replace="~{sharedFragments/sharedFragments :: cleanFooter}" />
     </body>
 </html>

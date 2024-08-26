@@ -31,6 +31,12 @@ public class ReservasController {
     private PaqueteService paqueteService;
 
     @Autowired
+    private ReservaHotelService reservaHotelService;
+
+    @Autowired
+    private HotelService hotelService;
+
+    @Autowired
     private HttpSession session;
 
     @Autowired
@@ -42,11 +48,14 @@ public class ReservasController {
 
         var listaReservasDestino = reservaDestinoService.getReservasDestinoByUserId(userId);
         var listaReservasPaquete = reservaPaqueteService.getReservasPaqueteByUserId(userId);
+        var listaReservasHotel = reservaHotelService.getReservasHotelByUserId(userId);
 
         model.addAttribute("reservasDestino", listaReservasDestino);
         model.addAttribute("reservasPaquete", listaReservasPaquete);
+        model.addAttribute("reservasHotel", listaReservasHotel);
         model.addAttribute("totalReservasDestino", listaReservasDestino.size());
         model.addAttribute("totalReservasPaquete", listaReservasPaquete.size());
+        model.addAttribute("totalReservasHotel", listaReservasHotel.size());
 
         return "/reserva/misReservas";
     }
@@ -113,6 +122,39 @@ public class ReservasController {
     public String cancelarReservaPaquete(@PathVariable Long idReservaPaquete) {
         ReservaPaquete reservaPaquete = reservaPaqueteService.getReservaPaqueteByIdReservaPaquete(idReservaPaquete);
         reservaPaqueteService.delete(reservaPaquete);
+
+        return "redirect:/reserva/misReservas";
+    }
+
+    @GetMapping("/reservaHotel/{idHotel}")
+    public String getReservaHotel(Model model, @PathVariable Long idHotel) {
+        Hotel hotel = hotelService.getHotelById(idHotel);
+        Long userId = (Long) session.getAttribute("usuarioId");
+
+        model.addAttribute("userId", userId);
+        model.addAttribute("hotel", hotel);
+        model.addAttribute("reservaHotel", new ReservaHotel());
+
+        return "/reserva/reservaHotel";
+    }
+
+    @PostMapping("/reservarHotel")
+    public String postReservaHotel(ReservaHotel reserva, @RequestParam Long idHotel, @RequestParam Long idUsuario) {
+        Usuario usuario = usuarioService.getUsuarioById(idUsuario);
+        Hotel hotel = hotelService.getHotelById(idHotel);
+
+        reserva.setUsuario(usuario);
+        reserva.setHotel(hotel);
+
+        reservaHotelService.save(reserva);
+
+        return "redirect:/reserva/misReservas";
+    }
+
+    @GetMapping("/cancelarReservaHotel/{idReservaHotel}")
+    public String cancelarReservaHotel(@PathVariable Long idReservaHotel) {
+        ReservaHotel reservaHotel = reservaHotelService.getReservaHotelByIdReservaHotel(idReservaHotel);
+        reservaHotelService.delete(reservaHotel);
 
         return "redirect:/reserva/misReservas";
     }

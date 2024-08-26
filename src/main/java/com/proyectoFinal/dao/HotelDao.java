@@ -9,4 +9,6 @@ public interface HotelDao extends JpaRepository<Hotel, Long> {
 
     public List<Hotel> findByEstrellasIsGreaterThanEqual(int estrellas);
 
+    public Hotel findByIdHotel(Long idHotel);
+
 }

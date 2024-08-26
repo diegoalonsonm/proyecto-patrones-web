@@ -1,6 +1,7 @@
 package com.proyectoFinal.controller;
 
 import com.proyectoFinal.domain.Hotel;
+import com.proyectoFinal.services.DestinoService;
 import com.proyectoFinal.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ public class HotelController {
 
     @Autowired
     private HotelService hotelService;
+
+    @Autowired
+    private DestinoService destinoService;
 
     @GetMapping("/listado")
     public String getHoteles(Model model) {
@@ -36,7 +40,10 @@ public class HotelController {
     }
 
     @GetMapping("/agregar")
-    public String agregar() {
+    public String agregar(Model model) {
+        var listaDestinos = destinoService.getDestinos();
+        model.addAttribute("destinos", listaDestinos);
+
         return "/hotel/agregar";
     }
 
@@ -50,6 +57,8 @@ public class HotelController {
     @GetMapping("/editar/{idHotel}")
     public String editarHotel(Model model, Hotel hotel) {
         var hotelEdit = hotelService.getHotel(hotel);
+        var listaDestinos = destinoService.getDestinos();
+        model.addAttribute("destinos", listaDestinos);
         model.addAttribute("hotel", hotelEdit);
 
         return "/hotel/editar";
