@@ -85,7 +85,7 @@ values
     (2, '2024-08-01', '2024-08-17', '2024-08-01', 3, 3, 1),  -- usuario 3, Destino 1, cancelada (París)
 
 create table reserva_paquete(
-    id_reserva_Destino int not null auto_increment primary key,
+    id_reserva_paquete int not null auto_increment primary key,
     cantidad_personas int not null,
     fecha_inicio date not null,
     fecha_fin date not null,

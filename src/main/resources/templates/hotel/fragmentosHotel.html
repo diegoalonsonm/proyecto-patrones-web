@@ -2,8 +2,13 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6" xmlns:th="http://thymeleaf.org">
 <head th:replace="~{layout/layout.html :: head}"/>
     <body>
-        <section th:fragment="listado" class="container my-5">
-            <div class="row">
+        <section th:fragment="listado" class="container my-5" style="height: 70vh">
+            <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="col">
+                    <a th:href="@{/hotel/agregar}" class="btn btn-outline-primary">Agregar hotel</a>
+                </div>
+            </div>
+            <div class="row mb-4">
                 <div class="col-12">
                     <h1 class="text-center">Listado de hoteles</h1>
                 </div>
@@ -15,21 +20,18 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Puntuacion</th>
-                                <th>Precio / noche</th>
+                                <th>Precio / noche ($)</th>
                                 <th>Pais</th>
-                                <th>Acciones</th>
+                                <th sec:authorize="hasRole('ROLE_ADMIN')">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="hotel : ${hoteles}">
                                 <td th:text="${hotel.nombre}"></td>
                                 <td th:text="${hotel.estrellas}"></td>
-                                <td th:text="${hotel.precioNoche}"></td>
+                                <td th:text="'$' + ${hotel.precioNoche}"></td>
                                 <td th:text="${hotel.destino.pais}"></td>
-                                <td>
-                                    <a th:href="@{/}" class="btn btn-outline-primary">Editar</a>
-                                    <a th:href="@{/}" class="btn btn-outline-secondary">Eliminar</a>
-                                </td>
+                                <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/hotel/editar/} + ${hotel.idHotel}" class="btn btn-outline-primary">Editar</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -92,6 +94,83 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="editar" class="container my-5">
+            <div class="row mb-3 text-center">
+                <div class="col">
+                    <h2>Editar hotel</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card p-5 w-75 shadow-md mx-auto">
+                        <form th:action="@{/hotel/agregarHotel}" th:object="${hotel}" method="post">
+                            <input type="hidden" name="idHotel" th:field="*{idHotel}" />
+                            <div class="form-group mb-3">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" required="true" th:field="*{nombre}" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="estrellas">Estrellas</label>
+                                <input type="number" min="1" max="5" id="estrellas" name="estrellas" class="form-control" required="true" th:field="*{estrellas}" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="precioNoche">Precio / noche</label>
+                                <input type="text" id="precioNoche" name="precioNoche" class="form-control" required="true" th:field="*{precioNoche}" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="idDestino">Pais</label>
+                                <select class="form-select" name="destino.idDestino" id="idDestino" th:field="*{destino.idDestino}">
+                                    <option th:each="destino : ${destinos}" th:value="${destino.idDestino}">[[${destino.pais}]]</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary mt-2 flex-grow-1 me-2">Editar</button>
+                                <a th:href="@{/hotel/listado}" class="btn btn-danger mt-2 flex-grow-1">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="agregar" class="container my-5">
+            <div class="row mb-3 text-center">
+                <div class="col">
+                    <h2>Agregar hotel</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card p-5 w-75 shadow-md mx-auto">
+                        <form th:action="@{/hotel/agregarHotel}" th:object="${hotel}" method="post">
+                            <div class="form-group mb-3">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" required="true" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="estrellas">Estrellas</label>
+                                <input type="number" min="1" max="5" id="estrellas" name="estrellas" class="form-control" required="true" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="precioNoche">Precio / noche</label>
+                                <input type="text" id="precioNoche" name="precioNoche" class="form-control" required="true" />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="idDestino">Pais</label>
+                                <select class="form-select" name="destino.idDestino" id="idDestino">
+                                    <option th:each="destino : ${destinos}" th:value="${destino.idDestino}">[[${destino.pais}]]</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary mt-2 flex-grow-1 me-2">Agregar</button>
+                                <a th:href="@{/hotel/listado}" class="btn btn-danger mt-2 flex-grow-1">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>

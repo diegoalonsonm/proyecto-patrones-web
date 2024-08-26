@@ -10,6 +10,8 @@ public interface HotelService {
 
     public Hotel getHotel(Hotel hotel);
 
+    public Hotel getHotelById(Long idHotel);
+
     public void save(Hotel hotel);
 
     public void delete(Hotel hotel);

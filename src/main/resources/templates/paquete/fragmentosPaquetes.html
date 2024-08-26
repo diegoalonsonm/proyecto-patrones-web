@@ -82,7 +82,7 @@
         <h1 class="text-center">Editar Destino</h1>
         <div class="card p-5 mt-3 w-75 shadow mx-auto">
             <form th:action="@{/paquete/agregarPaquete}" th:object="${paquete}" method="post"enctype="multipart/form-data">
-                <input type="hidden" name="idDestino" th:field="*{idPaquete}">
+                <input type="hidden" name="idPaquete" th:field="*{idPaquete}">
                 <div class="form-group mb-3">
                     <label for="nombre">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" required="true" th:field="*{nombre}" />

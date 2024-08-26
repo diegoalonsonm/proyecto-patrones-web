@@ -71,7 +71,8 @@ public class ProjectConfig implements WebMvcConfigurer {
                         .requestMatchers("/destino/listado", "/paquete/listado", "/hotel/listado").hasAnyRole("ADMIN", "VENDEDOR")
                         .requestMatchers("/facturar/**", "/reserva/misReservas/**", "/reserva/reservaDestino/**", "reserva/reservaPaquete/**",
                                 "/reserva/reservarDestino/**", "/reserva/reservarPaquete/**", "/reserva/cancelarReservaDestino/**",
-                                "/reserva/cancelarReservaPaquete/**", "/usuario/miPerfil/**").hasRole("USER"))
+                                "/reserva/cancelarReservaPaquete/**", "/hotel/agregar", "/hotel/editar/**", "/hotel/agregarHotel/**",
+                                "/reserva/reservaHotel/**", "/reserva/reservarHotel", "/reserva/cancelarReservaHotel/**").hasRole("USER"))
                 .formLogin((form) -> form.loginPage("/login").permitAll())
                 .logout((logout) -> logout.logoutSuccessUrl("/index").permitAll());
         return http.build();
